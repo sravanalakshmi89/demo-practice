@@ -1,3 +1,4 @@
+#auther: sravani
 #!/bin/bash
 
 # Check if a file name is provided
