@@ -4,4 +4,7 @@ resource "aws_s3_bucket" "example" {
     Name        = "remotestatetest123"
     Environment = "Dev"
   }
+  lifecycle {
+    prevent_destroy = true
+  }
 }

@@ -12,4 +12,7 @@ resource "aws_dynamodb_table" "example" {
     Environment = "dev"
     Name        = "tf-remote-backend"
   }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
