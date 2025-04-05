@@ -22,9 +22,19 @@ jobs:
         with:
           terraform_version: 1.7.0 # Specify your Terraform version
 
+      - name: Debug Repository
+        run: |
+          ls -la
+          ls -la terraform
+
       - name: Initialize Terraform
         run: |
-          terraform init -chdir=terraform
+          if [ -d "terraform" ]; then
+            terraform init -chdir=terraform
+          else
+            echo "Error: terraform directory not found"
+            exit 1
+          fi
         continue-on-error: false # Fail the workflow if this step fails
 
       - name: Validate Terraform
