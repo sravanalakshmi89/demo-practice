@@ -51,7 +51,7 @@ jobs:
           terraform plan -out=tfplan
 
       - name: Manual Approval
-        if: github.event_name == 'push'
+        if: github.event_name == 'pullrequest'
         uses: hmarr/auto-approve-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
