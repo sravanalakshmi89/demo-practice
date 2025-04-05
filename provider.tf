@@ -3,10 +3,19 @@ terraform {
   required_version = ">= 1.7.0"
 
   backend "s3" {
-    bucket         = aws_s3_bucket.example.bucket
-    key            = var.terraform_state_key
+    bucket         = "remotestatetest123"
+    key            = "terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = aws_dynamodb_table.example.name
-    encrypt        = true
-  } 
+    dynamodb_table = "tf-remote-backend"
+
+    encrypt = true
+  }
 }
+# terraform {
+#   required_version = ">= 1.7.0"
+
+#   # Temporarily use the local backend
+#   backend "local" {
+#     path = "terraform.tfstate"
+#   }
+# }

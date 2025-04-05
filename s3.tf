@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "example" {
-  bucket = "my-demo-s3-bucket"
+  bucket = "remotestatetest123"
   tags = {
-    Name        = "remotestatetest"
+    Name        = "remotestatetest123"
     Environment = "Dev"
   }
 }
