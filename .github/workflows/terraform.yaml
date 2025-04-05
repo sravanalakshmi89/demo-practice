@@ -22,15 +22,14 @@ jobs:
         with:
           terraform_version: 1.7.0 # Specify your Terraform version
 
-      - name: Debug Repository
+      - name: Debug Terraform Directory
         run: |
-          ls -la
           ls -la terraform
 
       - name: Initialize Terraform
         run: |
           if [ -d "terraform" ]; then
-            terraform init -chdir=terraform
+            terraform init -chdir=terraform -input=false -upgrade
           else
             echo "Error: terraform directory not found"
             exit 1
