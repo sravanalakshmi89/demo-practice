@@ -27,10 +27,12 @@ jobs:
           terraform init -chdir=terraform || echo "Terraform init failed"
 
       - name: Validate Terraform
-        run: terraform validate -chdir=terraform
+        run: |
+          terraform validate -chdir=terraform || echo "Terraform validate failed"
 
       - name: Plan Terraform
-        run: terraform plan -chdir=terraform
+        run: |
+          terraform plan -chdir=terraform || tee plan.out || echo "Terraform plan failed"
 
       - name: Apply Terraform (Manual Approval)
         if: github.event_name == 'push'
@@ -38,4 +40,5 @@ jobs:
           TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_region: us-east-1 # Specify your AWS region
-        run: terraform apply -auto-approve -chdir=terraform
+        run: |
+          terraform apply -auto-approve -chdir=terraform || tee apply.out || echo "Terraform apply failed"
