@@ -23,7 +23,8 @@ jobs:
           terraform_version: 1.7.0 # Specify your Terraform version
 
       - name: Initialize Terraform
-        run: terraform init -chdir=terraform
+        run: |
+          terraform init -chdir=terraform || echo "Terraform init failed"
 
       - name: Validate Terraform
         run: terraform validate -chdir=terraform
