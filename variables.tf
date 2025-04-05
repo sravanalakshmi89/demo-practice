@@ -9,13 +9,3 @@ variable "ami_id" {
   type        = string
   default     = "ami-084568db4383264d4"
 }
-variable "AWS_ACCESS_KEY_ID" {
-  description = "AWS access key"
-  type        = string
-  #efault     = var.AWS_ACCESS_KEY_ID
-}
-variable "AWS_SECRET_ACCESS_KEY" {
-  description = "AWS secret key"
-  type        = string
-  #efault     = var.AWS_SECRET_ACCESS_KEY
-}
