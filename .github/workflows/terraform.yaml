@@ -21,30 +21,18 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.7.0 # Specify your Terraform version
-
-      - name: Debug Terraform Directory
-        run: |
-          ls -la terraform
-
       - name: Initialize Terraform
-        run: |
-          if [ -d "terraform" ]; then
-            terraform init -chdir=terraform -input=false -upgrade
-          else
-            echo "Error: terraform directory not found"
-            exit 1
-          fi
-        continue-on-error: false # Fail the workflow if this step fails
+        run: terraform init 
 
       - name: Validate Terraform
         run: |
-          terraform validate -chdir=terraform
-        continue-on-error: false # Fail the workflow if this step fails
+          terraform validate 
+        
 
       - name: Plan Terraform
         run: |
-          terraform plan -chdir=terraform | tee plan.out
-        continue-on-error: false # Fail the workflow if this step fails
+          terraform plan 
+        
 
       - name: Manual Approval
         if: github.event_name == 'push'
@@ -59,5 +47,5 @@ jobs:
           TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_region: us-east-1 # Specify your AWS region
         run: |
-          terraform apply -auto-approve -chdir=terraform
+          terraform apply -auto-approve 
         continue-on-error: false # Fail the workflow if this step fails
