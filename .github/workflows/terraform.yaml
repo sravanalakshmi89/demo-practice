@@ -24,21 +24,31 @@ jobs:
 
       - name: Initialize Terraform
         run: |
-          terraform init -chdir=terraform || echo "Terraform init failed"
+          terraform init -chdir=terraform
+        continue-on-error: false # Fail the workflow if this step fails
 
       - name: Validate Terraform
         run: |
-          terraform validate -chdir=terraform || echo "Terraform validate failed"
+          terraform validate -chdir=terraform
+        continue-on-error: false # Fail the workflow if this step fails
 
       - name: Plan Terraform
         run: |
-          terraform plan -chdir=terraform || tee plan.out || echo "Terraform plan failed"
+          terraform plan -chdir=terraform | tee plan.out
+        continue-on-error: false # Fail the workflow if this step fails
 
-      - name: Apply Terraform (Manual Approval)
+      - name: Manual Approval
+        if: github.event_name == 'push'
+        uses: hmarr/auto-approve-action@v2 # Add a manual approval step
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Apply Terraform
         if: github.event_name == 'push'
         env:
           TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_region: us-east-1 # Specify your AWS region
         run: |
-          terraform apply -auto-approve -chdir=terraform || tee apply.out || echo "Terraform apply failed"
+          terraform apply -auto-approve -chdir=terraform
+        continue-on-error: false # Fail the workflow if this step fails
