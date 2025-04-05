@@ -9,3 +9,10 @@ variable "ami_id" {
   type        = string
   default     = "ami-084568db4383264d4"
 }
+
+variable "terraform_state_key" {
+  description = "S3 key for Terraform state file"
+  type        = string
+  default     = "terraform/state.tfstate"
+
+}
