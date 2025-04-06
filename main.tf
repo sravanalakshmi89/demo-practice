@@ -7,7 +7,8 @@ resource "aws_instance" "example" {
   iam_instance_profile   = aws_iam_instance_profile.ssm_instance_profile.name
   user_data              = <<-EOF
               #!/bin/bash
-              yum install -y amazon-ssm-agent
+              apt-get update -y
+              apt-get install -y amazon-ssm-agent
               systemctl enable amazon-ssm-agent
               systemctl start amazon-ssm-agent
               EOF
