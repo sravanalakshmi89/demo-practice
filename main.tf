@@ -1,4 +1,4 @@
-#ec2e: 1.0
+#ec2e: 2.0
 resource "aws_instance" "example" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
