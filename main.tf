@@ -5,7 +5,9 @@ resource "aws_instance" "example" {
   subnet_id              = aws_subnet.sub1.id
   vpc_security_group_ids = [aws_security_group.sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ssm_instance_profile.name
-  user_data              = <<-EOF
+  key_name               = "windows-demo-keypair" # Replace with your key pair name
+
+  user_data = <<-EOF
               #!/bin/bash
               apt-get update -y
               apt-get install -y amazon-ssm-agent
